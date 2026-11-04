@@ -1,0 +1,57 @@
+/* Mobile-first: barra inferior. En pantallas ≥ 900 px se cambia a barra lateral. */
+#app { min-height: 100vh; }
+.vista { padding: 1.25rem 1rem calc(6rem + env(safe-area-inset-bottom)); max-width: 760px; margin: 0 auto; }
+.vista.centrada { padding-top: 2rem; padding-bottom: 2rem; }
+
+.barra-inferior {
+  position: fixed; inset: auto 0 0 0; display: grid; grid-template-columns: repeat(5, 1fr); align-items: end;
+  background: var(--superficie); border-top: 1px solid var(--borde);
+  padding-bottom: env(safe-area-inset-bottom); z-index: 10;
+}
+.destino {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 56px; gap: 2px; font-size: .75rem; color: var(--tinta-suave); text-decoration: none;
+}
+.destino .icono { font-size: 1.35rem; line-height: 1; }
+.destino[aria-current="page"] { color: var(--agua); font-weight: 700; }
+/* Botón central ＋ elevado */
+.destino.central .icono {
+  display: grid; place-items: center; width: 52px; height: 52px; margin-top: -22px;
+  font-size: 1.9rem; color: #fff; background: var(--agua); border-radius: 50%;
+  box-shadow: 0 2px 8px rgb(0 0 0 / .25);
+}
+.lateral { display: none; }
+
+@media (min-width: 900px) {
+  .barra-inferior { display: none; }
+  .lateral {
+    display: flex; flex-direction: column; gap: .25rem; position: fixed; inset: 0 auto 0 0; width: 230px;
+    padding: 1.25rem .75rem; background: var(--superficie); border-right: 1px solid var(--borde);
+  }
+  .lateral .marca { font-family: var(--fuente-titulo); font-size: 1.15rem; padding: 0 .75rem 1rem; }
+  .lateral .destino { flex-direction: row; justify-content: flex-start; gap: .75rem; padding: 0 .75rem; font-size: 1rem; border-radius: 10px; }
+  .lateral .destino[aria-current="page"] { background: var(--agua-clara); }
+  .lateral .destino.central { order: -1; margin-bottom: .75rem; background: var(--agua); color: #fff; justify-content: center; border-radius: 999px; }
+  .lateral .destino.central .icono { all: unset; font-size: 1.2rem; }
+  main.contenido { margin-left: 230px; }
+  .vista { padding-bottom: 3rem; }
+}
+
+/* Dashboard */
+.encabezado h1 { margin-bottom: 0; }
+.encabezado p { color: var(--tinta-suave); }
+.rejilla-valores { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: .75rem; margin: .75rem 0; }
+.rejilla-valores dt { font-size: .8rem; color: var(--tinta-suave); }
+.rejilla-valores dd { margin: 0; font-size: 1.3rem; font-weight: 600; }
+.sugerencias { list-style: none; padding: 0; margin: 0; display: grid; gap: .5rem; }
+.sugerencias a { display: flex; gap: .75rem; align-items: center; min-height: 48px; padding: .5rem .75rem; text-decoration: none; color: inherit; border: 1px solid var(--borde); border-radius: 10px; }
+.lista-opciones { display: grid; gap: .75rem; }
+.opcion { display: block; padding: 1rem; text-decoration: none; color: inherit; background: var(--superficie); border: 1px solid var(--borde); border-radius: var(--radio); }
+.opcion small { display: block; color: var(--tinta-suave); }
+
+/* Etapa 2 */
+.rejilla-valores dd { font-size: 1.15rem; }
+.estado { border-left: 6px solid var(--borde); }
+.estado.al_dia { border-left-color: var(--hoja); }
+.estado.desactualizado { border-left-color: var(--alerta); }
+.etiqueta { margin-right: .25rem; }
